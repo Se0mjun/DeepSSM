@@ -81,3 +81,67 @@ $$
 | 단점 | 긴 시퀀스에서 gradient vanishing/exploding 문제 |
 | 응용 | 자연어 처리, 음성 인식, 시계열 예측 등 |
 
+# 🧠 Transformer 정리 (from A Survey of Mamba)
+
+## 📌 정의
+- Transformer는 **Self-Attention 메커니즘**을 도입하여 RNN의 순차적 처리 한계를 극복한 딥러닝 모델 아키텍처
+- 입력 시퀀스를 **병렬 처리**할 수 있어 학습 속도와 효율성이 뛰어남
+- 자연어 처리, 비전, 멀티모달 학습 등 다양한 분야에서 사용됨
+
+## 🔍 핵심 구조
+
+### 1. 입력 → 쿼리/키/값 변환
+
+$$
+Q = xW_Q, \quad K = xW_K, \quad V = xW_V
+$$
+
+- $W_Q$, $W_K$, $W_V$: 학습 가능한 가중치 행렬
+
+### 2. Self-Attention 계산
+
+$$
+\text{Attention}(Q, K, V) = \text{Softmax}\left(\frac{QK^T}{\sqrt{d_K}}\right) V
+$$
+
+- $d_K$: key 벡터의 차원
+- 입력 시퀀스 내 위치 간의 관계를 반영하여 중요도 가중치 부여
+
+### 3. Multi-Head Attention
+
+$$
+\text{MultiHead}(Q,K,V) = (S_1 \oplus S_2 \oplus \cdots \oplus S_m)W_O
+$$
+
+- 여러 개의 attention head 병렬 수행
+- 다양한 관계 및 특징을 학습 가능
+
+## ⚙️ 연산 특징
+
+| 항목 | 설명 |
+|------|------|
+| 연산 복잡도 | $O(L^2 D)$ (시퀀스 길이 $L$, 차원 $D$) |
+| 병렬 처리 | 가능 (GPU에 적합) |
+| 추론 속도 | 느림 (Auto-regressive generation 시 반복 계산 필요) |
+
+## ✅ 장점
+
+- 긴 시퀀스 내 위치 간의 **전역적 관계 파악 가능**
+- 병렬 처리 덕분에 **학습 속도 빠름**
+- 다양한 태스크에 높은 성능
+
+## ❌ 단점
+
+- Attention 연산의 **연산량이 $O(L^2)$로 큼** → 긴 입력 시 비효율적
+- 추론(inference) 시 auto-regressive 특성으로 **token-by-token 생성 → 느림**
+- 긴 문서 처리에는 비효율적일 수 있음
+
+## 📌 응용 분야
+
+- 자연어 처리 (BERT, GPT, T5 등)
+- 비전 (ViT, DeiT 등)
+- 시계열 예측, 멀티모달 학습, 음성 인식 등
+
+---
+
+**참고:** 본 내용은 “A Survey of Mamba (2024)”에서 Transformer 관련 서술을 요약한 것입니다.
