@@ -1,4 +1,4 @@
-# 🔁 Recurrent Neural Network (RNN) 정리
+# 1. Recurrent Neural Network (RNN) 정리
 
 ## 📌 정의
 - 시퀀스(Sequence) 데이터를 처리하는 **순환 구조의 신경망**
@@ -81,7 +81,7 @@ $$
 | 단점 | 긴 시퀀스에서 gradient vanishing/exploding 문제 |
 | 응용 | 자연어 처리, 음성 인식, 시계열 예측 등 |
 
-# 🧠 Transformer 정리 (from A Survey of Mamba)
+# 2. Transformer 정리 (from A Survey of Mamba)
 
 ## 📌 정의
 - Transformer는 **Self-Attention 메커니즘**을 도입하여 RNN의 순차적 처리 한계를 극복한 딥러닝 모델 아키텍처
