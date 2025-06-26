@@ -14,17 +14,23 @@ o_t &= W_{ho} h_t + b_o
 $$
 
 각 이산 시간 단계 k 에서 표준 RNN은 이전 단계의 hidden state $h_{k-1}$ 와 함께 벡터 $x_k$ 를 처리하여 출력 벡터 $o_k$ 를 생성하고 hidden state를 $h_k$로 업데이트
-hidden state는 네트워크의 메모리 역할을 하며 과거 input 에 대한 정보를 유지.
+hidden state는 네트워크의 메모리 역할을 하며 과거 입력 에 대한 정보를 유지.
+
+
 | 기호 | 의미 |
 |------|------|
 | $x_t$ | 입력 (at time t) |
 | $h_t$ | hidden state |
 | $o_t$ | 출력 |
-| $W_{xh}$ | 입력 → hidden 가중치 |
-| $W_{hh}$ | hidden → hidden 가중치 |
-| $W_{ho}$ | hidden → output 가중치 |
+| $W_{xh}$ | 입력 → hidden 가중치 | 모델 입력을 hidden state로 처리하는 가중치 행렬. 
+| $W_{hh}$ | hidden → hidden 가중치 | hidden state 간의 반복 연결
+| $W_{oh}$ | hidden → output 가중치 | hidens state에서 파생된 출력을 생성하는데 사용되는 가중치
 | $b_h$, $b_o$ | 편향 (bias) |
 | $tanh$ | 활성화 함수 (비선형성 부여) |
+
+## RNN의 한계점 
+1.  long range dynamics 를 추출하는데 제한적 (가중치를 반복적으로 곱하면서 dilution or loss
+2.  순차적인 데이터를 점진적으로 처리하기에 각 시간 단계가 이전 시간 단계에 의존 ( 계산 효율성 저하 )
 
 ## 🧮 훈련 가능한 파라미터
 
@@ -50,6 +56,7 @@ hidden state는 네트워크의 메모리 역할을 하며 과거 input 에 대�
 | 초기 상태 $h_0$ | 보통 0으로 고정되며 학습되지 않음 |
 | 입력 데이터 $x_t$ | 학습의 대상이 아니라 조건 |
 | dropout 비율 등 | 모델 외부 설정값 (학습되지 않음) |
+
 
 ## 🔍 활성화 함수
 
