@@ -1,0 +1,39 @@
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
+# 하나의 셀 처리
+class CustomRNNCell(nn.Module):
+    def __init__(self, input_size, hidden_size):
+        super(CustomRNNCell, self).__init__()
+        self.input_size = input_size
+        self.hidden_size = hidden_size
+
+        # RNN의 weight
+        self.W = nn.Linear(input_size, hidden_size)
+        self.U = nn.Linear(hidden_size, hidden_size)
+
+    def forward(self, x_t, h_prev):
+        # 수식: h_t = tanh(Wx + Uh + b)
+        h_t = torch.tanh(self.W(x_t) + self.U(h_prev))
+        return h_t
+
+
+# 전체 시퀀스 모듈
+class CustomRNN(nn.Module):
+    def __init__(self, input_size, hidden_size):
+        super(CustomRNN, self).__init__()
+        self.cell = CustomRNNCell(input_size, hidden_size)
+        self.hidden_size = hidden_size
+
+    def forward(self, input_seq):
+        batch_size, seq_len, _ = input_seq.size()
+        h_t = torch.zeros(batch_size, self.hidden_size).to(input_seq.device)
+
+        outputs = []
+        for t in range(seq_len):
+            x_t = input_seq[:, t, :]
+            h_t = self.cell(x_t, h_t)
+            outputs.append(h_t.unsqueeze(1))
+
+        return torch.cat(outputs, dim=1)  # (batch, seq_len, hidden)
