@@ -13,8 +13,8 @@ o_t &= W_{ho} h_t + b_o
 \end{aligned}
 $$
 
-각 이산 시간 단계 k 에서 표준 RNN은 이전 단계의 hidden state $h_{k-1}$ 와 함께 벡터 $x_k$ 를 처리하여 출력 벡터 $o_k$ 를 생성하고 hidden state를 $h_k$로 업데이트
-hidden state는 네트워크의 메모리 역할을 하며 과거 입력 에 대한 정보를 유지.
+- 각 이산 시간 단계 k 에서 표준 RNN은 이전 단계의 hidden state $h_{k-1}$ 와 함께 벡터 $x_k$ 를 처리하여 출력 벡터 $o_k$ 를 생성하고 hidden state를 $h_k$로 업데이트
+- hidden state는 네트워크의 메모리 역할을 하며 과거 입력 에 대한 정보를 유지.
 
 
 | 기호 | 의미 |
